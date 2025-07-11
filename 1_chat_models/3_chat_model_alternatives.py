@@ -10,13 +10,20 @@ load_dotenv()
 messages = [
     SystemMessage(content="Solve the following math problems"),
     HumanMessage(content="What is 81 divided by 9?"),
-]
+] 
 
 
 # ---- LangChain OpenAI Chat Model Example ----
 
 # Create a ChatOpenAI model
-model = ChatOpenAI(model="gpt-4o")
+model = ChatGoogleGenerativeAI(
+	model="gemini-2.5-flash",
+	client_options=None,
+	transport=None, 
+	additional_headers=None,
+	client=None,
+	async_client=None
+) # 替换为你想使用的 Gemini 模型名称
 
 # Invoke the model with messages
 result = model.invoke(messages)

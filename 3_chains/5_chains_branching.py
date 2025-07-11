@@ -8,7 +8,14 @@ from langchain_openai import ChatOpenAI
 load_dotenv()
 
 # Create a ChatOpenAI model
-model = ChatOpenAI(model="gpt-4o")
+model = ChatGoogleGenerativeAI(
+	model="gemini-2.5-flash",
+	client_options=None,
+	transport=None, 
+	additional_headers=None,
+	client=None,
+	async_client=None
+) # 替换为你想使用的 Gemini 模型名称
 
 # Define prompt templates for different feedback types
 positive_feedback_template = ChatPromptTemplate.from_messages(

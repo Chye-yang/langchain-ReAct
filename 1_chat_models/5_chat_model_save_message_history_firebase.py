@@ -1,9 +1,10 @@
 # Example Source: https://python.langchain.com/v0.2/docs/integrations/memory/google_firestore/
-
 from dotenv import load_dotenv
 from google.cloud import firestore
 from langchain_google_firestore import FirestoreChatMessageHistory
 from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
+
 
 """
 Steps to replicate this example:
@@ -23,9 +24,9 @@ Steps to replicate this example:
 load_dotenv()
 
 # Setup Firebase Firestore
-PROJECT_ID = "langchain-demo-abf48"
+PROJECT_ID = "agent-cy-55b17"
 SESSION_ID = "user_session_new"  # This could be a username or a unique ID
-COLLECTION_NAME = "chat_history"
+COLLECTION_NAME = "chat_history_agent"
 
 # Initialize Firestore Client
 print("Initializing Firestore Client...")
@@ -42,7 +43,14 @@ print("Chat History Initialized.")
 print("Current Chat History:", chat_history.messages)
 
 # Initialize Chat Model
-model = ChatOpenAI()
+model = ChatGoogleGenerativeAI(
+	model="gemini-2.5-flash",
+	client_options=None,
+	transport=None, 
+	additional_headers=None,
+	client=None,
+	async_client=None
+) # 替换为你想使用的 Gemini 模型名称
 
 print("Start chatting with the AI. Type 'exit' to quit.")
 
