@@ -15,7 +15,7 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 load_dotenv()
 
 # Load the existing Chroma vector store
-current_dir = os.path.dirname(os.path.abspath(__file__))
+current_dir = os.path.dirname(os.path.abspath(__name__))
 db_dir = os.path.join(current_dir, "..", "..", "4_rag", "db")
 persistent_directory = os.path.join(db_dir, "chroma_db_with_metadata")
 
@@ -30,7 +30,8 @@ else:
     )
 
 # Define the embedding model
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    model_name = "all-MiniLM-L6-v2"
+    embeddings = HuggingFaceEmbeddings(model_name=model_name)
 
 # Load the existing vector store with the embedding function
 db = Chroma(persist_directory=persistent_directory,

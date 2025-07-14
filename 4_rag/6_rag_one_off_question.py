@@ -4,17 +4,20 @@ from dotenv import load_dotenv
 from langchain_community.vectorstores import Chroma
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 # Load environment variables from .env
 load_dotenv()
 
 # Define the persistent directory
-current_dir = os.path.dirname(os.path.abspath(__file__))
+current_dir = os.path.dirname(os.path.abspath(__name__))
 persistent_directory = os.path.join(
     current_dir, "db", "chroma_db_with_metadata")
 
 # Define the embedding model
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+model_name = "all-MiniLM-L6-v2"
+embeddings = HuggingFaceEmbeddings(model_name=model_name)
 
 # Load the existing vector store with the embedding function
 db = Chroma(persist_directory=persistent_directory,

@@ -4,13 +4,14 @@ from dotenv import load_dotenv
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
+
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 # Load environment variables from .env
 load_dotenv()
 
 # Define the persistent directory
-current_dir = os.path.dirname(os.path.abspath(__file__))
+current_dir = os.path.dirname(os.path.abspath(__name__))
 db_dir = os.path.join(current_dir, "db")
 persistent_directory = os.path.join(db_dir, "chroma_db_apple")
 
@@ -34,7 +35,8 @@ print(f"Sample chunk:\n{docs[0].page_content}\n")
 
 # Step 3: Create embeddings for the document chunks
 # OpenAIEmbeddings turns text into numerical vectors that capture semantic meaning
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+model_name = "all-MiniLM-L6-v2"
+embeddings = HuggingFaceEmbeddings(model_name=model_name)
 
 # Step 4: Create and persist the vector store with the embeddings
 # Chroma stores the embeddings for efficient searching

@@ -4,10 +4,12 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
 
 # Define the directory containing the text files and the persistent directory
-current_dir = os.path.dirname(os.path.abspath(__file__))
-books_dir = os.path.join(current_dir, "books")
+current_dir = os.path.dirname(os.path.abspath(__name__))
+books_dir = os.path.join(current_dir, "4_rag","books")
 db_dir = os.path.join(current_dir, "db")
 persistent_directory = os.path.join(db_dir, "chroma_db_with_metadata")
 
@@ -27,6 +29,7 @@ if not os.path.exists(persistent_directory):
     # List all text files in the directory
     book_files = [f for f in os.listdir(books_dir) if f.endswith(".txt")]
 
+    book_files
     # Read the text content from each file and store it with metadata
     documents = []
     for book_file in book_files:
@@ -37,6 +40,7 @@ if not os.path.exists(persistent_directory):
             # Add metadata to each document indicating its source
             doc.metadata = {"source": book_file}
             documents.append(doc)
+    documents
 
     # Split the documents into chunks
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
@@ -48,9 +52,11 @@ if not os.path.exists(persistent_directory):
 
     # Create embeddings
     print("\n--- Creating embeddings ---")
-    embeddings = OpenAIEmbeddings(
-        model="text-embedding-3-small"
-    )  # Update to a valid embedding model if needed
+
+    model_name = "all-MiniLM-L6-v2"
+    embeddings = HuggingFaceEmbeddings(model_name=model_name)
+
+
     print("\n--- Finished creating embeddings ---")
 
     # Create the vector store and persist it

@@ -1,5 +1,14 @@
 import os
 
+from langchain.text_splitter import CharacterTextSplitter
+from langchain_community.document_loaders import TextLoader
+from langchain_community.vectorstores import Chroma
+
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
+
+
 from langchain.text_splitter import (
     CharacterTextSplitter,
     RecursiveCharacterTextSplitter,
@@ -7,13 +16,9 @@ from langchain.text_splitter import (
     TextSplitter,
     TokenTextSplitter,
 )
-from langchain_community.document_loaders import TextLoader
-from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
-
 # Define the directory containing the text file
-current_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(current_dir, "books", "romeo_and_juliet.txt")
+current_dir = os.path.dirname(os.path.abspath(__name__))
+file_path = os.path.join(current_dir, "4_rag","books", "romeo_and_juliet.txt")
 db_dir = os.path.join(current_dir, "db")
 
 # Check if the text file exists
@@ -27,10 +32,8 @@ loader = TextLoader(file_path)
 documents = loader.load()
 
 # Define the embedding model
-embeddings = OpenAIEmbeddings(
-    model="text-embedding-3-small"
-)  # Update to a valid embedding model if needed
-
+model_name = "all-MiniLM-L6-v2"
+embeddings = HuggingFaceEmbeddings(model_name=model_name)
 
 # Function to create and persist vector store
 def create_vector_store(docs, store_name):

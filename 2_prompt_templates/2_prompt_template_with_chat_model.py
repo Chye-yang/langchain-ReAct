@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from langchain.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
+
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 # Load environment variables from .env
 load_dotenv()

@@ -4,11 +4,12 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
+
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 # Define the directory containing the text file and the persistent directory
-current_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(current_dir, "books", "odyssey.txt")
+current_dir = os.path.dirname(os.path.abspath(__name__))
+file_path = os.path.join(current_dir,"4_rag", "books", "odyssey.txt")
 db_dir = os.path.join(current_dir, "db")
 
 # Check if the text file exists
@@ -49,9 +50,9 @@ def create_vector_store(docs, embeddings, store_name):
 # Useful for general-purpose embeddings with high accuracy.
 # Note: The cost of using OpenAI embeddings will depend on your OpenAI API usage and pricing plan.
 # Pricing: https://openai.com/api/pricing/
-print("\n--- Using OpenAI Embeddings ---")
-openai_embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
-create_vector_store(docs, openai_embeddings, "chroma_db_openai")
+# print("\n--- Using OpenAI Embeddings ---")
+# openai_embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+# create_vector_store(docs, OpenAIEmbeddings, "chroma_db_openai")
 
 # 2. Hugging Face Transformers
 # Uses models from the Hugging Face library.
@@ -95,7 +96,7 @@ def query_vector_store(store_name, query, embedding_function):
 query = "Who is Odysseus' wife?"
 
 # Query each vector store
-query_vector_store("chroma_db_openai", query, openai_embeddings)
+# query_vector_store("chroma_db_openai", query, openai_embeddings)
 query_vector_store("chroma_db_huggingface", query, huggingface_embeddings)
 
 print("Querying demonstrations completed.")

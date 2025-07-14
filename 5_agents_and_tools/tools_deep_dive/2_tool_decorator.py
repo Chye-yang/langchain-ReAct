@@ -5,7 +5,8 @@ from langchain import hub
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import tool
-from langchain_openai import ChatOpenAI
+
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 
 # Simple Tool with one parameter without args_schema
