@@ -114,18 +114,6 @@ Explore the technologies like documents, embeddings, and vector stores that enab
 
 Learn about agents, how they work, and how to build custom tools to enhance their capabilities.
 
-## How to Use This Repository
-
-1. **Watch the Video:** Start by watching the LangChain Master Class for Beginners video on YouTube at 2X speed for a high-level overview.
-
-2. **Run the Code Examples:** Follow along with the code examples provided in this repository. Each section in the video corresponds to a folder in this repo.
-
-3. **Join the Community:** If you get stuck or want to connect with other AI developers, join the FREE Skool community [here](https://www.skool.com/ai-developer-accelerator/about).
-
-## Comprehensive Documentation
-
-Each script in this repository contains detailed comments explaining the purpose and functionality of the code. This will help you understand the flow and logic behind each example.
-
 
 ## License
 
